@@ -1,16 +1,37 @@
-# This is a sample Python script.
+from fastapi import FastAPI, Path
+from pydantic import BaseModel, EmailStr
+from typing import Annotated
+from users.views import router as users_router
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import uvicorn
+
+from items_views import router as items_router
+
+app = FastAPI()
+app.include_router(items_router)
+app.include_router(users_router)
+
+@app.get("/")
+def hello_index():
+    return {
+        "message": "Hello index!",
+    }
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+@app.get("/hello/")
+def hello(name: str = "World"):
+    name = name.strip().title()
+    return {"message": f"Hello {name}!"}
 
 
-# Press the green button in the gutter to run the script.
+@app.get("/calc/add/")
+def add(a: int, b: int):
+    return {
+        "a": a,
+        "b": b,
+        "result": a + b,
+    }
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    uvicorn.run("main:app", reload=True)
