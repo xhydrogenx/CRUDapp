@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "crud-app"
+version = "0.1.0"
+description = "Standart CRUD application based on Python3, FastAPI, SQLAlchemy"
+authors = ["hydrogen <ivan.karpov.88@yandex.ru>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.108.0"
+uvicorn = {extras = ["strandart"], version = "^0.25.0"}
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
